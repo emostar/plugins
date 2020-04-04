@@ -44,7 +44,7 @@ class AppStoreConnection implements InAppPurchaseConnection {
   Future<bool> isAvailable() => SKPaymentQueueWrapper.canMakePayments();
 
   @override
-  Future<bool> buyNonConsumable({@required PurchaseParam purchaseParam}) async {
+  Future<bool> buyNonConsumable({@required PurchaseParam purchaseParam, String oldSku}) async {
     await _skPaymentQueueWrapper.addPayment(SKPaymentWrapper(
         productIdentifier: purchaseParam.productDetails.id,
         quantity: 1,
@@ -58,7 +58,7 @@ class AppStoreConnection implements InAppPurchaseConnection {
   Future<bool> buyConsumable(
       {@required PurchaseParam purchaseParam, bool autoConsume = true}) {
     assert(autoConsume == true, 'On iOS, we should always auto consume');
-    return buyNonConsumable(purchaseParam: purchaseParam);
+    return buyNonConsumable(purchaseParam: purchaseParam, oldSku: null);
   }
 
   @override

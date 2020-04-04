@@ -52,11 +52,12 @@ class GooglePlayConnection
   }
 
   @override
-  Future<bool> buyNonConsumable({@required PurchaseParam purchaseParam}) async {
+  Future<bool> buyNonConsumable({@required PurchaseParam purchaseParam, String oldSku}) async {
     BillingResultWrapper billingResultWrapper =
         await billingClient.launchBillingFlow(
             sku: purchaseParam.productDetails.id,
-            accountId: purchaseParam.applicationUserName);
+            accountId: purchaseParam.applicationUserName,
+            oldSku: oldSku);
     return billingResultWrapper.responseCode == BillingResponse.ok;
   }
 
@@ -66,7 +67,7 @@ class GooglePlayConnection
     if (autoConsume) {
       _productIdsToConsume.add(purchaseParam.productDetails.id);
     }
-    return buyNonConsumable(purchaseParam: purchaseParam);
+    return buyNonConsumable(purchaseParam: purchaseParam, oldSku: null);
   }
 
   @override

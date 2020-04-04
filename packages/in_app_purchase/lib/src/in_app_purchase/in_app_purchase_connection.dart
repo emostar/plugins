@@ -134,7 +134,7 @@ abstract class InAppPurchaseConnection {
   ///  * [queryPastPurchases], for restoring non consumable products.
   ///
   /// Calling this method for consumable items will cause unwanted behaviors!
-  Future<bool> buyNonConsumable({@required PurchaseParam purchaseParam});
+  Future<bool> buyNonConsumable({@required PurchaseParam purchaseParam, String oldSku});
 
   /// Buy a consumable product.
   ///
